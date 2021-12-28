@@ -3,23 +3,20 @@ var today = moment();
 $("#currentDay").text(today.format("MMM Do, YYYY"));
 
 var saveBtn = document.querySelector('.saveBtn')
-var presentHour = moment().format("H");
-// var hourCol = querySelectorAll("[data-time='2']");
-
+var presentHour = parseInt(moment().format("H"));
+console.log(presentHour)
 var pastClass = $('.past');
 var futureClass = $('.future');
 var presentClass = $('.present');
-// var middleCol = $('middleCol');
+
 
 var container = document.querySelector('#container')
 
 console.log(presentHour);
 function changeCol () {
     for (var i = 9; i <= 16; i++) {
-        // var displayContent = window.localStorage.getItem(`${i}`);
         var textArea = document.querySelector(`[data-time='${i}']`);
         console.log(textArea.dataset.time)
-        // textArea.value = displayContent;
         if (presentHour == textArea.dataset.time) {
             // Preset
             textArea.classList.remove('past')
@@ -38,27 +35,20 @@ function changeCol () {
         }
     };
 }
-
 changeCol();
 setInterval(() => {
         changeCol();   
 }, 10000); 
 
-
-
 // Click save to save text
 container.onclick = function save(e) {
-    // console.log(e.target.previousElementSibling.innerText);
-    // var myContent = document.querySelector(".userTextArea").value;
     var etarget = e.target
     if (etarget.className != 'col saveBtn') {
         console.log('not logging')
         return
     }
-
     var textAreaKey = document.querySelector(`[data-time='${e.target.previousElementSibling.dataset.time}']`);
     localStorage.setItem(e.target.previousElementSibling.dataset.time, textAreaKey.value);
-    var displayContent = window.localStorage.getItem('myContentKey');
     console.log(textAreaKey.value)
     console.log(localStorage)
 }
@@ -68,6 +58,3 @@ for (var i = 9; i < 17; i++) {
     var textArea = document.querySelector(`[data-time='${i}']`);
     textArea.value = displayContent;
 } 
-
-// console.log(localStorage.clear())
-// console.log(localStorage.getItem('myContentKey'))
