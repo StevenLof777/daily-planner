@@ -2,28 +2,72 @@
 var today = moment();
 $("#currentDay").text(today.format("MMM Do, YYYY"));
 
-var presentTime = moment();
+var saveBtn = document.querySelector('.saveBtn')
+var presentHour = moment().format("H");
+// var hourCol = querySelectorAll("[data-time='2']");
+
+var pastClass = $('.past');
+var futureClass = $('.future');
+var presentClass = $('.present');
+// var middleCol = $('middleCol');
+
+var container = document.querySelector('#container')
+
+console.log(presentHour);
+function changeCol () {
+    for (var i = 9; i <= 16; i++) {
+        // var displayContent = window.localStorage.getItem(`${i}`);
+        var textArea = document.querySelector(`[data-time='${i}']`);
+        console.log(textArea.dataset.time)
+        // textArea.value = displayContent;
+        if (presentHour == textArea.dataset.time) {
+            // Preset
+            textArea.classList.remove('past')
+            textArea.classList.remove('future')
+            textArea.classList.add('present')
+        } else if (presentHour < textArea.dataset.time) {
+            // Future
+            textArea.classList.remove('past')
+            textArea.classList.remove('present')
+            textArea.classList.add('future')
+        } else if (presentHour > textArea.dataset.time) {
+            // Past
+            textArea.classList.remove('present')
+            textArea.classList.remove('future')
+            textArea.classList.add('past')
+        }
+    };
+}
+
+changeCol();
+setInterval(() => {
+        changeCol();   
+}, 10000); 
 
 
-// Make a function that switches colors depending on hour
-function hourOfDay() {
-    if (presentTime === hourRow) {
-        // remove past class
-        // remove future class
-        // add present class to the row
-    } else if (presentTime < hourRow) {
-        // remove present class
-        // remove past class
-        // add future class to the row
-    } else if (presentTime > hourRow){
-        // remove present class
-        // remove future class
-        // add past class
+
+// Click save to save text
+container.onclick = function save(e) {
+    // console.log(e.target.previousElementSibling.innerText);
+    // var myContent = document.querySelector(".userTextArea").value;
+    var etarget = e.target
+    if (etarget.className != 'col saveBtn') {
+        console.log('not logging')
+        return
     }
-    return hourRow
+
+    var textAreaKey = document.querySelector(`[data-time='${e.target.previousElementSibling.dataset.time}']`);
+    localStorage.setItem(e.target.previousElementSibling.dataset.time, textAreaKey.value);
+    var displayContent = window.localStorage.getItem('myContentKey');
+    console.log(textAreaKey.value)
+    console.log(localStorage)
 }
 
-// Make a function that stores text in local storage
-function plans () {
-    
-}
+for (var i = 9; i < 17; i++) {  
+    var displayContent = window.localStorage.getItem(`${i}`);
+    var textArea = document.querySelector(`[data-time='${i}']`);
+    textArea.value = displayContent;
+} 
+
+// console.log(localStorage.clear())
+// console.log(localStorage.getItem('myContentKey'))
