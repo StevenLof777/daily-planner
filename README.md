@@ -12,3 +12,6 @@ AS AN employee with a busy schedule
 I WANT to add important events to a daily planner
 SO THAT I can manage my time effectively
 ```
+![A simple calendar app for scheduling your work day.](./assets/images/daily-planner.PNG)
+
+[Github page](https://stevenlof777.github.io/daily-planner/)
