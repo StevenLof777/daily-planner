@@ -1,5 +1,5 @@
 # daily-planner
-* A simple calendar app for scheduling your work day.
+* A simple calendar app for scheduling your work day. If the time block is gray then it is the past, if the time block is green then it's the future, if the time block is red then it's the present.
 
 * The grey is the past, the green is the future, and the red is the present hour.
 
